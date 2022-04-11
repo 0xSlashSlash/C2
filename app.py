@@ -10,6 +10,7 @@ import sys
 import fire
 import questionary
 from pathlib import Path
+import time
 
 from qualifier.utils.fileio import load_csv
 
@@ -126,9 +127,14 @@ def save_qualifying_loans(qualifying_loans):
 
     if loan_print = True
         output_path = questionary.path("What's path would you like to print the csv to?").ask()
-        save_csv(qualifying_loans):
+        save_csv(qualifying_loans)
+        print("Thank you for using LQ, your file has been saved.")
+        time.sleep(5)
+        exit()
     else 
-        print("please return to main menu")
+        print("Thank you for using LQ, program will exit in 5 seconds.")
+        time.sleep(5)
+        exit()
 
 def run():
     """The main function for running the script."""
