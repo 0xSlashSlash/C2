@@ -102,6 +102,17 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
     return bank_data_filtered
 
 
+    
+header = ["bank_data", "credit_score", "debt", "income", "loan_amount", "home_value"]
+output_path = Path("qualifying_loans.csv")
+
+def save_csv(qualifying_loans):
+    with open(output_path, 'w', newline='') as quals:
+        writer = csv.writer(quals)
+        writer.writerow(header)
+        for loan in qualifying_loans:
+            writer.writerow(loan)
+
 def save_qualifying_loans(qualifying_loans):
     """Saves the qualifying loans to a CSV file.
 
@@ -110,14 +121,7 @@ def save_qualifying_loans(qualifying_loans):
     """
     # @TODO: Complete the usability dialog for savings the CSV Files.
     # YOUR CODE HERE!
-header = ["lender", "max_loan", "max_ltv", "max_dti", "min_credit_score", "interest_rate"]
-output_path = Path("qualifying_loans.csv")
-
-with open(output_path, 'w', newline='') as quals:
-    writer = csv.writer(quals)
-    writer.writerow(header)
-    for loan in qualifying_loans:
-        writer.writerow(loan)
+    save_csv(qualifying_loans)
 
 def run():
     """The main function for running the script."""
