@@ -110,7 +110,14 @@ def save_qualifying_loans(qualifying_loans):
     """
     # @TODO: Complete the usability dialog for savings the CSV Files.
     # YOUR CODE HERE!
+header = ["lender", "max_loan", "max_ltv", "max_dti", "min_credit_score", "interest_rate"]
+output_path = Path("qualifying_loans.csv")
 
+with open(output_path, 'w', newline='') as quals:
+    writer = csv.writer(quals)
+    writer.writerow(header)
+    for loan in qualifying_loans:
+        writer.writerow(loan)
 
 def run():
     """The main function for running the script."""
