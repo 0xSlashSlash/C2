@@ -1,0 +1,18 @@
+    1  export CONDA_EXE='C:/Users/dank/anaconda3\Scripts\conda.exe'
+    2  export _CE_M=''
+    3  export _CE_CONDA=''
+    4  export CONDA_PYTHON_EXE='C:/Users/dank/anaconda3\python.exe'
+    5  # Copyright (C) 2012 Anaconda, Inc
+    6  # SPDX-License-Identifier: BSD-3-Clause
+    7  __add_sys_prefix_to_path() {     if [ -n "${_CE_CONDA}" ] && [ -n "${WINDIR+x}" ]; then         SYSP=$(\dirname "${CONDA_EXE}");     else         SYSP=$(\dirname "${CONDA_EXE}");         SYSP=$(\dirname "${SYSP}");     fi;      if [ -n "${WINDIR+x}" ]; then         PATH="${SYSP}/bin:${PATH}";         PATH="${SYSP}/Scripts:${PATH}";         PATH="${SYSP}/Library/bin:${PATH}";         PATH="${SYSP}/Library/usr/bin:${PATH}";         PATH="${SYSP}/Library/mingw-w64/bin:${PATH}";         PATH="${SYSP}:${PATH}";     else         PATH="${SYSP}/bin:${PATH}";     fi;     \export PATH; }
+    8  __conda_exe() (     __add_sys_prefix_to_path;     "$CONDA_EXE" $_CE_M $_CE_CONDA "$@"; )
+    9  __conda_hashr() {     if [ -n "${ZSH_VERSION:+x}" ]; then         \rehash;     elif [ -n "${POSH_VERSION:+x}" ]; then         :  # pass;     else         \hash -r;     fi; }
+   10  __conda_activate() {     if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then         PS1="$CONDA_PS1_BACKUP";         \unset CONDA_PS1_BACKUP;     fi;     \local ask_conda;     ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return;     \eval "$ask_conda";     __conda_hashr; }
+   11  __conda_reactivate() {     \local ask_conda;     ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix reactivate)" || \return;     \eval "$ask_conda";     __conda_hashr; }
+   12  conda() {     \local cmd="${1-__missing__}";     case "$cmd" in         activate|deactivate)             __conda_activate "$@";             ;;         install|update|upgrade|remove|uninstall)             __conda_exe "$@" || \return;             __conda_reactivate;             ;;         *)             __conda_exe "$@";             ;;     esac; }
+   13  if [ -z "${CONDA_SHLVL+x}" ]; then     \export CONDA_SHLVL=0     if [ -n "${_CE_CONDA:+x}" ] && [ -n "${WINDIR+x}" ]; then         PATH="$(\dirname "$CONDA_EXE")/condabin${PATH:+":${PATH}"}";     else         PATH="$(\dirname "$(\dirname "$CONDA_EXE")")/condabin${PATH:+":${PATH}"}";     fi;     \export PATH;      if [ -z "${PS1+x}" ]; then         PS1=;     fi; fi
+   14  git add app.py
+   15  git add README.md
+   16  git commit -m "final commit w/ all revisions and updated readme"
+   17  git push -u C2 master
+   18  history 50 > terminal_history.txt
