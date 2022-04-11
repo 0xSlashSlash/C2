@@ -121,7 +121,14 @@ def save_qualifying_loans(qualifying_loans):
     """
     # @TODO: Complete the usability dialog for savings the CSV Files.
     # YOUR CODE HERE!
-    save_csv(qualifying_loans)
+
+    loan_print = questionary.confirm("Would you like to save the qualifying_loans?").ask()
+
+    if loan_print = True
+        output_path = questionary.path("What's path would you like to print the csv to?").ask()
+        save_csv(qualifying_loans):
+    else 
+        print("please return to main menu")
 
 def run():
     """The main function for running the script."""
